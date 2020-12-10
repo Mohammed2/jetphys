@@ -19,8 +19,6 @@ namespace uf {
   constexpr double ptminreco = 28;
   constexpr double ptmingen = 15;
   constexpr double ptminnlo = 32;   // Range of the nlo curve
-  constexpr double fitmin = 15;    
-
   constexpr double fitptmin = 15; // Min pT used for fit
 
   constexpr double xmin = 15;

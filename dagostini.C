@@ -281,7 +281,7 @@ void dagostiniUnfold_histo(TH1D *hpt, TH1D *hnlo, TDirectory *outdir,
 
   //hnlo->Fit(fnlo,"QRN");
   //hnlo->Scale(2e-10); // TEMP PATCH
-  fnlo->SetRange(max(uf::fitmin,uf::ptminnlo), min(uf::xmax, jp::emax/cosh(y1)));
+  fnlo->SetRange(max(uf::fitptmin,uf::ptminnlo), min(uf::xmax, jp::emax/cosh(y1)));
   cout << "fit hnlo" << endl;
   hnlo->Fit(fnlo,"RN"); 
   fnlo->SetRange(uf::ptminnlo, min(uf::xmax, jp::emax/cosh(y1)));
@@ -311,7 +311,7 @@ void dagostiniUnfold_histo(TH1D *hpt, TH1D *hnlo, TDirectory *outdir,
 
   // Second fit to properly centered graph
   //gnlo2->Fit(fnlo,"QRN");
-  fnlo->SetRange(max(uf::fitmin,uf::ptminnlo), min(uf::xmax, jp::emax/cosh(y1)));   // Fit ranges here...
+  fnlo->SetRange(max(uf::fitptmin,uf::ptminnlo), min(uf::xmax, jp::emax/cosh(y1)));   // Fit ranges here...
   cout << "fit to gnlo2" << endl;
   gnlo2->Fit(fnlo,"RN");
   fnlo->SetRange(uf::ptminnlo, min(uf::xmax, jp::emax/cosh(y1)));
