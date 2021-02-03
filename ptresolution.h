@@ -665,44 +665,44 @@ double ecalprefire(double pt, double eta, jer_iov run) {
 jer_iov prefireIOV(const string run, unsigned int yid) {
 
     if (yid == 0) {
-      if (strncmp(run.c_str(),"B",4)) return run2016bcd;
-      else if (strncmp(run.c_str(),"C",4)) return run2016bcd;   
-      else if (strncmp(run.c_str(),"D",4)) return run2016bcd;
-      else if (strncmp(run.c_str(),"E",4)) return run2016ef;   
-      else if (strncmp(run.c_str(),"F",4)) return run2016ef;
-      else if (strncmp(run.c_str(),"G",4)) return run2016gh;
-      else if (strncmp(run.c_str(),"H",4)) return run2016gh;
+      if (!strncmp(run.c_str(),"B",4)) return run2016bcd;
+      else if (!strncmp(run.c_str(),"C",4)) return run2016bcd;   
+      else if (!strncmp(run.c_str(),"D",4)) return run2016bcd;
+      else if (!strncmp(run.c_str(),"E",4)) return run2016ef;   
+      else if (!strncmp(run.c_str(),"F",4)) return run2016ef;
+      else if (!strncmp(run.c_str(),"G",4)) return run2016gh;
+      else if (!strncmp(run.c_str(),"H",4)) return run2016gh;
       else return run2016;
     }
     else if (yid == 1) {
-      if (strncmp(run.c_str(),"B",4)) return run2017b;
-      else if (strncmp(run.c_str(),"C",4)) return run2017c;   
-      else if (strncmp(run.c_str(),"D",4)) return run2017de;
-      else if (strncmp(run.c_str(),"E",4)) return run2017de;   
-      else if (strncmp(run.c_str(),"F",4)) return run2017f;
+      if (!strncmp(run.c_str(),"B",4)) return run2017b;
+      else if (!strncmp(run.c_str(),"C",4)) return run2017c;   
+      else if (!strncmp(run.c_str(),"D",4)) return run2017de;
+      else if (!strncmp(run.c_str(),"E",4)) return run2017de;   
+      else if (!strncmp(run.c_str(),"F",4)) return run2017f;
       else return run2017;
     }
-    else return run2018;
+    return run2018;
 }
 
 jer_iov prefireIOV() {
 
   if (jp::yid == 0) {
-      if (strncmp(jp::run.c_str(),"B",4)) return run2016bcd;
-      else if (strncmp(jp::run.c_str(),"C",4)) return run2016bcd;   
-      else if (strncmp(jp::run.c_str(),"D",4)) return run2016bcd;
-      else if (strncmp(jp::run.c_str(),"E",4)) return run2016ef;   
-      else if (strncmp(jp::run.c_str(),"F",4)) return run2016ef;
-      else if (strncmp(jp::run.c_str(),"G",4)) return run2016gh;
-      else if (strncmp(jp::run.c_str(),"H",4)) return run2016gh;
+      if (!strncmp(jp::run.c_str(),"B",4)) return run2016bcd;
+      else if (!strncmp(jp::run.c_str(),"C",4)) return run2016bcd;   
+      else if (!strncmp(jp::run.c_str(),"D",4)) return run2016bcd;
+      else if (!strncmp(jp::run.c_str(),"E",4)) return run2016ef;   
+      else if (!strncmp(jp::run.c_str(),"F",4)) return run2016ef;
+      else if (!strncmp(jp::run.c_str(),"G",4)) return run2016gh;
+      else if (!strncmp(jp::run.c_str(),"H",4)) return run2016gh;
       else return run2016;
     }
     else if (jp::yid == 1) {
-      if (strncmp(jp::run.c_str(),"B",4)) return run2017b;
-      else if (strncmp(jp::run.c_str(),"C",4)) return run2017c;   
-      else if (strncmp(jp::run.c_str(),"D",4)) return run2017de;
-      else if (strncmp(jp::run.c_str(),"E",4)) return run2017de;   
-      else if (strncmp(jp::run.c_str(),"F",4)) return run2017f;
+      if (!strncmp(jp::run.c_str(),"B",4)) return run2017b;
+      else if (!strncmp(jp::run.c_str(),"C",4)) return run2017c;   
+      else if (!strncmp(jp::run.c_str(),"D",4)) return run2017de;
+      else if (!strncmp(jp::run.c_str(),"E",4)) return run2017de;   
+      else if (!strncmp(jp::run.c_str(),"F",4)) return run2017f;
       else return run2017;
     }
     return run2018;
@@ -711,11 +711,11 @@ jer_iov prefireIOV() {
 jer_iov jerIOVauto() {
   if (jp::yid == 0) return run2016;
   else if (jp::yid == 1) {
-    if (strncmp(jp::run.c_str(),"B",4)) return ul17b;
-    else if (strncmp(jp::run.c_str(),"C",4)) return ul17c;   
-    else if (strncmp(jp::run.c_str(),"D",4)) return ul17d;
-    else if (strncmp(jp::run.c_str(),"E",4)) return ul17e;   
-    else if (strncmp(jp::run.c_str(),"F",4)) return ul17f;
+    if (!strncmp(jp::run.c_str(),"B",4)) return ul17b;
+    else if (!strncmp(jp::run.c_str(),"C",4)) return ul17c;   
+    else if (!strncmp(jp::run.c_str(),"D",4)) return ul17d;
+    else if (!strncmp(jp::run.c_str(),"E",4)) return ul17e;   
+    else if (!strncmp(jp::run.c_str(),"F",4)) return ul17f;
   }
   else if (jp::yid == 2) return run2017;
   else if (jp::yid == 3) return run2018;
