@@ -144,10 +144,7 @@ void drawDagostini(string type) {
       h2->GetYaxis()->SetNoExponent();
       h2->GetYaxis()->SetTitleOffset(1.5);
       h2->GetZaxis()->SetRangeUser(1e-3,0.9999);
-
-      //    h2->GetXaxis()->SetRangeUser(jp::fitptmin,jp::xmax);
-      // h2->GetYaxis()->SetRangeUser(jp::recopt,jp::xmax);
-      
+     
       h2->GetXaxis()->SetRangeUser(uf::ptminreco,uf::xmax);
       h2->GetYaxis()->SetRangeUser(uf::ptmingen,uf::xmax);
       //h2resp->Draw("SAME COLZ");
@@ -199,13 +196,15 @@ void drawDagostini(string type) {
     tex->SetNDC(kFALSE);
     tex->DrawLatex(150, 0.5, (y2-0.5)==0 ? "|y|<0.5" : Form("%1.1f<|y|<%1.1f",y1,y2));
 
-    if (iy==2) {
-      leg->AddEntry(gbayes,"RooUnfoldBayes","P");
-      leg->AddEntry(gbin,"RooUnfoldBinByBin","P");
-       leg->AddEntry(gsvd,"RooUnfoldSvd","P");
-      leg->AddEntry(gfwd,"Forward smearing","L");
-      leg->Draw();
+    if (iy==0) { 
+     c2->cd(9);
+     leg->AddEntry(gbayes,"RooUnfoldBayes","P");
+     leg->AddEntry(gbin,"RooUnfoldBinByBin","P");
+     leg->AddEntry(gsvd,"RooUnfoldSvd","P");
+     leg->AddEntry(gfwd,"Forward smearing","L");
+     leg->Draw();
     }
+
 
     c3->cd(iy+1);
     gPad->SetLogx();
@@ -231,10 +230,12 @@ void drawDagostini(string type) {
 
     tex->DrawLatex(150,0.91, (y2-0.5)==0 ? "|y|<0.5" : Form("%1.1f<|y|<%1.1f",y1,y2));
 
-    if (iy==2) leg->Draw();
+    // if (iy==2) leg->Draw();
 
   }
-
+  c3->cd(9);
+  leg->Draw();
+ 
   const char *a = string(jp::algo).c_str();
   const char *t = type.c_str();
 
@@ -243,22 +244,17 @@ void drawDagostini(string type) {
   tex->SetNDC(kTRUE);
   tex->DrawLatex(0.35, 0.85, Form("%s %s",t,a));
   c1->cd(0);
-  //cmsPrel(type=="DATA" ? _lumi : 0, true);
-  //c1->SaveAs(Form("pdf/roounfold_matrix_%s_%s.pdf",a,t));
-  //c1b->SaveAs(Form("pdf/roounfold_matrix0_%s_%s.pdf",a,t));
-
-  c2->cd(2);
+ 
+  c2->cd(9);
   tex->SetTextSize(0.053);
-  tex->DrawLatex(0.50, 0.85, Form("%s %s",t,a));
+  tex->DrawLatex(0.50, 0.65, Form("%s %s",t,a));
   c2->cd(0);
-  //cmsPrel(type=="DATA" ? jp::lumi : 0, true);
-  //c2->SaveAs(Form("pdf/roounfold_comparison_%s_%s.pdf",a,t));
 
-  c3->cd(2);
-  tex->DrawLatex(0.50, 0.85, Form("%s %s",t,a));
+
+  c3->cd(9);
+  tex->DrawLatex(0.50, 0.65, Form("%s %s",t,a));
   c3->cd(0);
-  //cmsPrel(type=="DATA" ? jp::lumi : 0, true);
-  //c3->SaveAs(Form("pdf/roounfold_ratiotofwd_%s_%s.pdf",a,t));
+
 
   if(jp::isgluon && !jp::isquark){
     c1->SaveAs(Form("pdf/roounfold_matrix_%s_%s_gluon.pdf",a,t));
