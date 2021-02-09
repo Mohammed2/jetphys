@@ -716,6 +716,7 @@ jer_iov jerIOVauto() {
     else if (!strncmp(jp::run.c_str(),"D",4)) return ul17d;
     else if (!strncmp(jp::run.c_str(),"E",4)) return ul17e;   
     else if (!strncmp(jp::run.c_str(),"F",4)) return ul17f;
+    else return ul17;
   }
   else if (jp::yid == 2) return run2017;
   else if (jp::yid == 3) return run2018;
