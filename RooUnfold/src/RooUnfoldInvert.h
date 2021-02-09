@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: RooUnfoldInvert.h 304 2011-10-04 23:40:00Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      Unfolding class using inversion of the response matrix. This does not produce

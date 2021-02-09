@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: RooUnfoldTestHarness3D.h 322 2011-10-27 00:23:35Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      Test Harness class for the RooUnfold package using 3D toy MC.

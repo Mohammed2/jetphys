@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: RooUnfoldBayes.h 316 2011-10-17 19:48:27Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      Bayesian unfolding. Just an interface to RooUnfoldBayesImpl.

@@ -1,6 +1,6 @@
 #===============================================================================
 # File and Version Information:
-#      $Id: GNUmakefile 356 2017-08-24 21:13:33Z T.J.Adye@rl.ac.uk $
+#      $Id$
 #
 # Description:
 #   Makefile for the RooUnfold package
@@ -22,6 +22,7 @@
 #     To used the shared library: export LD_LIBRARY_PATH="$PWD:$LD_LIBRARY_PATH"
 #   - Add ROOTBUILD=debug for debug version.
 #   - Add VERBOSE=1 to show commands as they are executed.
+#   - Add HAVE_TSVDUNFOLD=0 to disable local version of TSVDUnfold and use version in ROOT.
 #
 # Build targets:
 #   help    - give brief help
@@ -134,7 +135,7 @@ endif
 PACKAGE       = RooUnfold
 SRCDIR        = $(CURDIR)/src/
 INCDIR        = $(SRCDIR)
-WORKDIR       = $(CURDIR)/tmp/$(ARCH)/
+WORKDIR       = $(CURDIR)/build/$(ARCH)/
 LIBDIR        = $(CURDIR)/
 SHLIBDIR      = $(CURDIR)/
 EXEDIR        =
@@ -201,8 +202,9 @@ HAVE_TSVDUNFOLD = 1
 endif
 
 ifeq ($(HAVE_TSVDUNFOLD),1)
-CPPFLAGS     += -DHAVE_TSVDUNFOLD
+CPPFLAGS     += -DHAVE_TSVDUNFOLD=1
 else
+CPPFLAGS     += -DHAVE_TSVDUNFOLD=0
 EXCLUDE      += TSVDUnfold.cxx TSVDUnfold_local.h
 endif
 
@@ -237,7 +239,7 @@ LINKDEFMAP    = $(WORKDIR)$(PACKAGE)Map_LinkDef
 HLIST         = $(filter-out $(addprefix $(INCDIR),$(EXCLUDE)) $(LINKDEF),$(wildcard $(INCDIR)*.h)) $(LINKDEF)
 CINTFILE      = $(WORKDIR)$(PACKAGE)Dict.cxx
 ifneq ($(ROOTCLING),)
-CLINGDICT     = $(SHLIBDIR)/$(PACKAGE)Dict_rdict.pcm
+CLINGDICT     = $(SHLIBDIR)$(PACKAGE)Dict_rdict.pcm
 endif
 CINTOBJ       = $(OBJDIR)$(PACKAGE)Dict.$(ObjSuf)
 LIBNAME       = $(PACKAGE)
@@ -275,7 +277,9 @@ SRCLIST       = $(filter-out $(EXCLUDE),$(notdir $(wildcard $(SRCDIR)*.cxx))) $(
 OLIST         = $(addprefix $(OBJDIR),$(addsuffix .$(ObjSuf),$(basename $(SRCLIST))))
 
 ifneq ($(filter %.for,$(SRCLIST)),)
-GCCLIBS       = -lg2c
+  ifeq ($(findstring 77,$(FC)),77)
+	GCCLIBS       = -lg2c
+  endif	
 endif
 
 ROOTLIBFILES := $(wildcard $(patsubst -l%,$(ROOTLIBDIR)/lib%.$(DllSuf),$(filter -l%,$(ROOTLIBS))))

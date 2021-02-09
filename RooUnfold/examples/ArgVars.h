@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: ArgVars.h 316 2011-10-17 19:48:27Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      Parse argument list for parameter settings
@@ -29,7 +29,7 @@ private:
   ArgVar* Find (const char* name) const;
   ArgVars& Add (ArgVar* arg);
 public:
-  ArgVars() {}
+  ArgVars() { lst.SetOwner(); }
   virtual ~ArgVars();
   ArgVars& Add (const char* name,    Int_t* var) { return Add (new ArgVar (name, var)); }
   ArgVars& Add (const char* name, Double_t* var) { return Add (new ArgVar (name, var)); }

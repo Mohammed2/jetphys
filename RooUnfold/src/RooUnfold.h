@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: RooUnfold.h 354 2017-07-11 17:49:50Z T.J.Adye@rl.ac.uk $
+//      $Id$
 //
 // Description:
 //      Unfolding framework base class.

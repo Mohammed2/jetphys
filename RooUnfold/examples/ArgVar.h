@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: ArgVar.h 316 2011-10-17 19:48:27Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      Parse argument list for parameter settings

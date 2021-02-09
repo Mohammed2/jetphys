@@ -1,6 +1,6 @@
 //=====================================================================-*-C++-*-
 // File and Version Information:
-//      $Id: RooUnfoldTestPdfRooFit.icc 293 2011-06-22 20:27:23Z T.J.Adye $
+//      $Id$
 //
 // Description:
 //      MC Generation routines implemented with RooFit.

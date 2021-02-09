@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 # ==============================================================================
-#  File and Version Information:
-#       $Id: RooUnfoldExample.py 354 2017-07-11 17:49:50Z T.J.Adye@rl.ac.uk $
 #
-#  Description:
-#       Simple example usage of the RooUnfold package using toy MC.
-#
+#  Simple example usage of the RooUnfold package using toy MC.
 #  Author: Tim Adye <T.J.Adye@rl.ac.uk>
 #
 # ==============================================================================
 
-from ROOT import gRandom, TH1, TH1D, cout
-from ROOT import RooUnfoldResponse
-from ROOT import RooUnfold
-from ROOT import RooUnfoldBayes
-# from ROOT import RooUnfoldSvd
-# from ROOT import RooUnfoldTUnfold
-# from ROOT import RooUnfoldIds
+import sys
+method = "bayes"
+if len(sys.argv) > 1: method = sys.argv[1]
+
+import ROOT
+from ROOT import gRandom, TH1, TH1D, TCanvas
+
+try:
+  cout= ROOT.std.cout   # This seems to work better in ROOT 6.22
+except:
+  cout= ROOT.cout
 
 # ==============================================================================
 #  Gaussian smearing, systematic translation, and variable inefficiency
@@ -33,11 +33,12 @@ def smear(xt):
 #  Example Unfolding
 # ==============================================================================
 
-print "==================================== TRAIN ===================================="
-response= RooUnfoldResponse (40, -10.0, 10.0);
+ROOT.gROOT.SetBatch(True)
+
+response= ROOT.RooUnfoldResponse (40, -10.0, 10.0);
 
 #  Train with a Breit-Wigner, mean 0.3 and width 2.5.
-for i in xrange(100000):
+for i in range(100000):
   xt= gRandom.BreitWigner (0.3, 2.5);
   x= smear (xt);
   if x!=None:
@@ -45,25 +46,36 @@ for i in xrange(100000):
   else:
     response.Miss (xt);
 
-print "==================================== TEST ====================================="
 hTrue= TH1D ("true", "Test Truth",    40, -10.0, 10.0);
 hMeas= TH1D ("meas", "Test Measured", 40, -10.0, 10.0);
 #  Test with a Gaussian, mean 0 and width 2.
-for i in xrange(10000):
+for i in range(10000):
   xt= gRandom.Gaus (0.0, 2.0)
   x= smear (xt);
   hTrue.Fill(xt);
   if x!=None: hMeas.Fill(x);
 
-print "==================================== UNFOLD ==================================="
-unfold= RooUnfoldBayes     (response, hMeas, 4);    #  OR
-# unfold= RooUnfoldSvd     (response, hMeas, 20);     #  OR
-# unfold= RooUnfoldTUnfold (response, hMeas);         #  OR
-# unfold= RooUnfoldIds     (response, hMeas, 3);      #  OR
+if   method == "bayes":
+  unfold= ROOT.RooUnfoldBayes   (response, hMeas, 4);    #  OR
+elif method == "svd":
+  unfold= ROOT.RooUnfoldSvd     (response, hMeas, 20);   #  OR
+elif method == "tunfold":
+  unfold= ROOT.RooUnfoldTUnfold (response, hMeas);       #  OR
+elif method == "ids":
+  unfold= ROOT.RooUnfoldIds     (response, hMeas, 3);    #  OR
+else:
+  print ("Unknown method:",method)
+  sys.exit(1)
 
 hReco= unfold.Hreco();
+
 unfold.PrintTable (cout, hTrue);
+
+canvas = ROOT.TCanvas("RooUnfold",method)
+
 hReco.Draw();
 hMeas.Draw("SAME");
 hTrue.SetLineColor(8);
 hTrue.Draw("SAME");
+
+canvas.SaveAs("RooUnfold.pdf")
